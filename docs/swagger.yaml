@@ -1,0 +1,362 @@
+basePath: /api/v1
+definitions:
+  crud.Pagination:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+    type: object
+  schema.RequestAudioCreate:
+    properties:
+      group:
+        type: string
+      song:
+        type: string
+    type: object
+  schema.RequestAudioUpdate:
+    properties:
+      group:
+        type: string
+      link:
+        type: string
+      lyrics:
+        type: string
+      release_date:
+        type: string
+      song:
+        type: string
+    type: object
+  schema.ResponseAudioRead:
+    properties:
+      created_at:
+        type: string
+      group:
+        type: string
+      link:
+        type: string
+      release_date:
+        type: string
+      song:
+        type: string
+      updated_at:
+        type: string
+      uuid:
+        type: string
+    type: object
+  schema.ResponseAudioReadFull:
+    properties:
+      created_at:
+        type: string
+      group:
+        type: string
+      link:
+        type: string
+      lyrics:
+        items:
+          $ref: '#/definitions/schema.ResponseLyricRead'
+        type: array
+      release_date:
+        type: string
+      song:
+        type: string
+      updated_at:
+        type: string
+      uuid:
+        type: string
+    type: object
+  schema.ResponseLyricRead:
+    properties:
+      audio_uuid:
+        type: string
+      created_at:
+        type: string
+      order:
+        type: integer
+      text:
+        type: string
+      updated_at:
+        type: string
+      uuid:
+        type: string
+    type: object
+  schema.ResponseUUID:
+    properties:
+      uuid:
+        type: string
+    type: object
+  v1.ResponseBase-schema_ResponseAudioRead:
+    properties:
+      data:
+        $ref: '#/definitions/schema.ResponseAudioRead'
+      message:
+        type: string
+    type: object
+  v1.ResponseBase-schema_ResponseAudioReadFull:
+    properties:
+      data:
+        $ref: '#/definitions/schema.ResponseAudioReadFull'
+      message:
+        type: string
+    type: object
+  v1.ResponseBase-schema_ResponseUUID:
+    properties:
+      data:
+        $ref: '#/definitions/schema.ResponseUUID'
+      message:
+        type: string
+    type: object
+  v1.ResponseBaseErr:
+    properties:
+      error:
+        type: string
+      message:
+        type: string
+    type: object
+  v1.ResponseBasePaginated-schema_ResponseAudioRead:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/schema.ResponseAudioRead'
+        type: array
+      message:
+        type: string
+      next_pagination:
+        $ref: '#/definitions/crud.Pagination'
+    type: object
+  v1.ResponseBasePaginated-schema_ResponseLyricRead:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/schema.ResponseLyricRead'
+        type: array
+      message:
+        type: string
+      next_pagination:
+        $ref: '#/definitions/crud.Pagination'
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8082
+info:
+  contact: {}
+  description: This is my server.
+  license:
+    name: Apache helicopter
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Music service
+  version: "1.0"
+paths:
+  /audios:
+    get:
+      consumes:
+      - application/json
+      description: List audio by Filter
+      parameters:
+      - description: exact search
+        in: query
+        name: group
+        type: string
+      - description: full-text-search (english)
+        in: query
+        name: song
+        type: string
+      - description: after(include) search
+        in: query
+        name: after
+        type: string
+      - description: before(include) search
+        in: query
+        name: before
+        type: string
+      - description: exact search
+        in: query
+        name: link
+        type: string
+      - description: full-text-search (english)
+        in: query
+        name: lyric
+        type: string
+      - description: rows limit
+        in: query
+        name: limit
+        type: integer
+      - description: rows offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.ResponseBasePaginated-schema_ResponseAudioRead'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+      summary: List audio by Filter
+      tags:
+      - Audio API
+    post:
+      consumes:
+      - application/json
+      description: Create audio
+      parameters:
+      - description: Audio base
+        in: body
+        name: Audio
+        schema:
+          $ref: '#/definitions/schema.RequestAudioCreate'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.ResponseBase-schema_ResponseUUID'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+      summary: Create audio
+      tags:
+      - Audio API
+  /audios/{uuid}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete audio by UUID
+      parameters:
+      - description: Audio UUID
+        in: path
+        name: uuid
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.ResponseBase-schema_ResponseUUID'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+      summary: Delete audio by UUID
+      tags:
+      - Audio API
+    get:
+      consumes:
+      - application/json
+      description: Find by UUID
+      parameters:
+      - description: Audio UUID
+        in: path
+        name: uuid
+        type: string
+      - description: With lyrics or not
+        in: query
+        name: full
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.ResponseBase-schema_ResponseAudioReadFull'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+      summary: Find by UUID
+      tags:
+      - Audio API
+    patch:
+      consumes:
+      - application/json
+      description: Update audio by UUID
+      parameters:
+      - description: Audio UUID
+        in: path
+        name: uuid
+        type: string
+      - description: Audio update base
+        in: body
+        name: Audio
+        schema:
+          $ref: '#/definitions/schema.RequestAudioUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.ResponseBase-schema_ResponseAudioRead'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+      summary: Update audio by UUID
+      tags:
+      - Audio API
+  /audios/{uuid}/lyrics:
+    get:
+      consumes:
+      - application/json
+      description: List audio lyrics by UUID
+      parameters:
+      - description: Audio UUID
+        in: path
+        name: uuid
+        type: string
+      - description: rows limit
+        in: query
+        name: limit
+        type: string
+      - description: rows offset
+        in: query
+        name: offset
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.ResponseBasePaginated-schema_ResponseLyricRead'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.ResponseBaseErr'
+      summary: List audio lyrics by UUID
+      tags:
+      - Audio API
+swagger: "2.0"

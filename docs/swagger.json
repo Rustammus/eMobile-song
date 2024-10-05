@@ -1,0 +1,554 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is my server.",
+        "title": "Music service",
+        "contact": {},
+        "license": {
+            "name": "Apache helicopter",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8082",
+    "basePath": "/api/v1",
+    "paths": {
+        "/audios": {
+            "get": {
+                "description": "List audio by Filter",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Audio API"
+                ],
+                "summary": "List audio by Filter",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "exact search",
+                        "name": "group",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "full-text-search (english)",
+                        "name": "song",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "after(include) search",
+                        "name": "after",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "before(include) search",
+                        "name": "before",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "exact search",
+                        "name": "link",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "full-text-search (english)",
+                        "name": "lyric",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "rows limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "rows offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBasePaginated-schema_ResponseAudioRead"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create audio",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Audio API"
+                ],
+                "summary": "Create audio",
+                "parameters": [
+                    {
+                        "description": "Audio base",
+                        "name": "Audio",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/schema.RequestAudioCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBase-schema_ResponseUUID"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    }
+                }
+            }
+        },
+        "/audios/{uuid}": {
+            "get": {
+                "description": "Find by UUID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Audio API"
+                ],
+                "summary": "Find by UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Audio UUID",
+                        "name": "uuid",
+                        "in": "path"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "With lyrics or not",
+                        "name": "full",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBase-schema_ResponseAudioReadFull"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete audio by UUID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Audio API"
+                ],
+                "summary": "Delete audio by UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Audio UUID",
+                        "name": "uuid",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBase-schema_ResponseUUID"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update audio by UUID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Audio API"
+                ],
+                "summary": "Update audio by UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Audio UUID",
+                        "name": "uuid",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Audio update base",
+                        "name": "Audio",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/schema.RequestAudioUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBase-schema_ResponseAudioRead"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    }
+                }
+            }
+        },
+        "/audios/{uuid}/lyrics": {
+            "get": {
+                "description": "List audio lyrics by UUID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Audio API"
+                ],
+                "summary": "List audio lyrics by UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Audio UUID",
+                        "name": "uuid",
+                        "in": "path"
+                    },
+                    {
+                        "type": "string",
+                        "description": "rows limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "rows offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBasePaginated-schema_ResponseLyricRead"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ResponseBaseErr"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "crud.Pagination": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "type": "integer"
+                }
+            }
+        },
+        "schema.RequestAudioCreate": {
+            "type": "object",
+            "properties": {
+                "group": {
+                    "type": "string"
+                },
+                "song": {
+                    "type": "string"
+                }
+            }
+        },
+        "schema.RequestAudioUpdate": {
+            "type": "object",
+            "properties": {
+                "group": {
+                    "type": "string"
+                },
+                "link": {
+                    "type": "string"
+                },
+                "lyrics": {
+                    "type": "string"
+                },
+                "release_date": {
+                    "type": "string"
+                },
+                "song": {
+                    "type": "string"
+                }
+            }
+        },
+        "schema.ResponseAudioRead": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "string"
+                },
+                "link": {
+                    "type": "string"
+                },
+                "release_date": {
+                    "type": "string"
+                },
+                "song": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "schema.ResponseAudioReadFull": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "string"
+                },
+                "link": {
+                    "type": "string"
+                },
+                "lyrics": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/schema.ResponseLyricRead"
+                    }
+                },
+                "release_date": {
+                    "type": "string"
+                },
+                "song": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "schema.ResponseLyricRead": {
+            "type": "object",
+            "properties": {
+                "audio_uuid": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "order": {
+                    "type": "integer"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "schema.ResponseUUID": {
+            "type": "object",
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.ResponseBase-schema_ResponseAudioRead": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schema.ResponseAudioRead"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.ResponseBase-schema_ResponseAudioReadFull": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schema.ResponseAudioReadFull"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.ResponseBase-schema_ResponseUUID": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schema.ResponseUUID"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.ResponseBaseErr": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.ResponseBasePaginated-schema_ResponseAudioRead": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/schema.ResponseAudioRead"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "next_pagination": {
+                    "$ref": "#/definitions/crud.Pagination"
+                }
+            }
+        },
+        "v1.ResponseBasePaginated-schema_ResponseLyricRead": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/schema.ResponseLyricRead"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "next_pagination": {
+                    "$ref": "#/definitions/crud.Pagination"
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "OpenAPI",
+        "url": "https://swagger.io/resources/open-api/"
+    }
+}
