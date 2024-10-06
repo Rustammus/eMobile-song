@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emobile-song-db-deployment
+  labels:
+    app: emobile-song-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emobile-song-db
+  template:
+    metadata:
+      labels:
+        app: emobile-song-db
+    spec:
+      containers:
+        - name: emobile-song-db
+          image: postgres:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5435
+              name: song-db-port
+          envFrom:
+            - configMapRef:
+                name: emobile-song-db-config
+      restartPolicy: Always

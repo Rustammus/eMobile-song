@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: emobile-song-db-config
+  namespace: default
+data:
+  PGPORT: "5435"
+  POSTGRES_DB: "postgres"
+  POSTGRES_USER: "user1"
+  POSTGRES_PASSWORD: "1234"
