@@ -8,17 +8,19 @@ import (
 )
 
 type Config struct {
-	Server struct {
-		Port           string `yaml:"port" env:"APP_PORT" env-required:""`
-		LogLevel       string `yaml:"log_level" env:"APP_LOG_LEVEL" env-required:""`
-		EnableSwag     bool   `yaml:"enable_swag" env:"APP_ENABLE_SWAG" env-default:"true"`
-		Host           string `yaml:"host" env:"APP_HOST" env-default:"localhost"`
-		ExternalHost   string `yaml:"external_host" env:"APP_EXTERNAL_HOST" env-required:""`
-		ExternalPort   string `yaml:"external_port" env:"APP_EXTERNAL_PORT" env-required:""`
-		InfoServiceUrl string `yaml:"info_service_url" env:"APP_INFO_SERVICE_URL" env-required:""`
-		PagLimit       int    `yaml:"pag_limit" env:"APP_PAG_LIMIT" env-required:""`
-	} `yaml:"server"`
+	Server  Server  `yaml:"server"`
 	Storage Storage `yaml:"storage"`
+}
+
+type Server struct {
+	Port           string `yaml:"port" env:"APP_PORT" env-required:""`
+	LogLevel       string `yaml:"log_level" env:"APP_LOG_LEVEL" env-required:""`
+	EnableSwag     bool   `yaml:"enable_swag" env:"APP_ENABLE_SWAG" env-default:"true"`
+	Host           string `yaml:"host" env:"APP_HOST" env-default:"localhost"`
+	ExternalHost   string `yaml:"external_host" env:"APP_EXTERNAL_HOST" env-required:""`
+	ExternalPort   string `yaml:"external_port" env:"APP_EXTERNAL_PORT" env-required:""`
+	InfoServiceUrl string `yaml:"info_service_url" env:"APP_INFO_SERVICE_URL" env-required:""`
+	PagLimit       int    `yaml:"pag_limit" env:"APP_PAG_LIMIT" env-required:""`
 }
 
 type Storage struct {

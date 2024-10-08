@@ -37,6 +37,8 @@ func NewService(d *Deps) Service {
 	}
 }
 
+//go:generate mockgen -source=service.go -destination=mocks\mock.go
+
 type IAudioService interface {
 	Create(audio *dto.AudioCreate) (pgtype.UUID, error)
 	Find(uuid pgtype.UUID) (*dto.AudioRead, error)

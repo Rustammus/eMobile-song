@@ -10,8 +10,8 @@ import (
 )
 
 type RequestAudioCreate struct {
-	Group string `json:"group"`
-	Song  string `json:"song"`
+	Group string `json:"group" example:"classic"`
+	Song  string `json:"song" example:"some song"`
 }
 
 func (schema *RequestAudioCreate) ToDTO() (*dto.AudioCreate, error) {
@@ -34,11 +34,11 @@ func (schema *RequestAudioCreate) ToDTO() (*dto.AudioCreate, error) {
 }
 
 type RequestAudioUpdate struct {
-	Group       *string `json:"group"`
-	Song        *string `json:"song"`
-	ReleaseDate *string `json:"release_date"`
-	Link        *string `json:"link"`
-	Lyrics      *string `json:"lyrics"`
+	Group       *string `json:"group" example:"classic"`
+	Song        *string `json:"song" example:"some song"`
+	ReleaseDate *string `json:"release_date" example:"2012-09-23"`
+	Link        *string `json:"link" example:"https://youtu.be/dQw4w9WgXcQ"`
+	Lyrics      *string `json:"lyrics" example:"Never gonna give you up\n\nnever gonna let you down"`
 }
 
 func (schema *RequestAudioUpdate) ToDTO() (*dto.AudioUpdate, error) {
@@ -103,12 +103,12 @@ func (schema *RequestAudioUpdate) ToDTO() (*dto.AudioUpdate, error) {
 }
 
 type RequestAudioFilter struct {
-	Group             string `json:"group"`
-	Song              string `json:"song"`
-	ReleaseDateAfter  string `json:"after"`
-	ReleaseDateBefore string `json:"before"`
-	Link              string `json:"link"`
-	Lyric             string `json:"lyric"`
+	Group             string `json:"group" example:"classic"`
+	Song              string `json:"song" example:"some song"`
+	ReleaseDateAfter  string `json:"after" example:"2012-09-23"`
+	ReleaseDateBefore string `json:"before" example:"2025-09-23"`
+	Link              string `json:"link" example:"https://youtu.be/dQw4w9WgXcQ"`
+	Lyric             string `json:"lyric" example:"never gonna give"`
 }
 
 func (schema *RequestAudioFilter) ToDTO() (*dto.AudioFilter, error) {
@@ -173,13 +173,13 @@ func (schema *RequestAudioFilter) ScanQuery(u *url.URL) {
 }
 
 type ResponseAudioRead struct {
-	UUID        pgtype.UUID        `json:"uuid"`
-	Group       string             `json:"group"`
-	Song        string             `json:"song"`
-	ReleaseDate pgtype.Date        `json:"release_date" swaggertype:"string"`
-	Link        string             `json:"link"`
-	CreatedAt   pgtype.Timestamptz `json:"created_at" swaggertype:"string"`
-	UpdatedAt   pgtype.Timestamptz `json:"updated_at" swaggertype:"string"`
+	UUID        pgtype.UUID        `json:"uuid" example:"da6f6e2c-ef5d-4276-b0a1-5067e77278ca"`
+	Group       string             `json:"group" example:"classic"`
+	Song        string             `json:"song" example:"some song"`
+	ReleaseDate pgtype.Date        `json:"release_date" swaggertype:"string" example:"2012-09-23"`
+	Link        string             `json:"link" example:"https://youtu.be/dQw4w9WgXcQ"`
+	CreatedAt   pgtype.Timestamptz `json:"created_at" swaggertype:"string" example:"2024-10-05T12:57:19.752+05:00"`
+	UpdatedAt   pgtype.Timestamptz `json:"updated_at" swaggertype:"string" example:"2024-10-05T12:57:19.752+05:00"`
 }
 
 func (schema *ResponseAudioRead) FromDTO(dto *dto.AudioRead) {
@@ -193,14 +193,14 @@ func (schema *ResponseAudioRead) FromDTO(dto *dto.AudioRead) {
 }
 
 type ResponseAudioReadFull struct {
-	UUID        pgtype.UUID         `json:"uuid"`
-	Group       string              `json:"group"`
-	Song        string              `json:"song"`
-	ReleaseDate pgtype.Date         `json:"release_date" swaggertype:"string"`
-	Link        string              `json:"link"`
+	UUID        pgtype.UUID         `json:"uuid" example:"da6f6e2c-ef5d-4276-b0a1-5067e77278ca"`
+	Group       string              `json:"group" example:"classic"`
+	Song        string              `json:"song" example:"some song"`
+	ReleaseDate pgtype.Date         `json:"release_date" swaggertype:"string" example:"2012-09-23"`
+	Link        string              `json:"link" example:"https://youtu.be/dQw4w9WgXcQ"`
 	Lyrics      []ResponseLyricRead `json:"lyrics,omitempty"`
-	CreatedAt   pgtype.Timestamptz  `json:"created_at" swaggertype:"string"`
-	UpdatedAt   pgtype.Timestamptz  `json:"updated_at" swaggertype:"string"`
+	CreatedAt   pgtype.Timestamptz  `json:"created_at" swaggertype:"string" example:"2024-10-05T12:57:19.752+05:00"`
+	UpdatedAt   pgtype.Timestamptz  `json:"updated_at" swaggertype:"string" example:"2024-10-05T12:57:19.752+05:00"`
 }
 
 func (schema *ResponseAudioReadFull) FromDTO(dto *dto.AudioRead) {

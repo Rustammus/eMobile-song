@@ -10,79 +10,110 @@ definitions:
   schema.RequestAudioCreate:
     properties:
       group:
+        example: classic
         type: string
       song:
+        example: some song
         type: string
     type: object
   schema.RequestAudioUpdate:
     properties:
       group:
+        example: classic
         type: string
       link:
+        example: https://youtu.be/dQw4w9WgXcQ
         type: string
       lyrics:
+        example: |-
+          Never gonna give you up
+
+          never gonna let you down
         type: string
       release_date:
+        example: "2012-09-23"
         type: string
       song:
+        example: some song
         type: string
     type: object
   schema.ResponseAudioRead:
     properties:
       created_at:
+        example: "2024-10-05T12:57:19.752+05:00"
         type: string
       group:
+        example: classic
         type: string
       link:
+        example: https://youtu.be/dQw4w9WgXcQ
         type: string
       release_date:
+        example: "2012-09-23"
         type: string
       song:
+        example: some song
         type: string
       updated_at:
+        example: "2024-10-05T12:57:19.752+05:00"
         type: string
       uuid:
+        example: da6f6e2c-ef5d-4276-b0a1-5067e77278ca
         type: string
     type: object
   schema.ResponseAudioReadFull:
     properties:
       created_at:
+        example: "2024-10-05T12:57:19.752+05:00"
         type: string
       group:
+        example: classic
         type: string
       link:
+        example: https://youtu.be/dQw4w9WgXcQ
         type: string
       lyrics:
         items:
           $ref: '#/definitions/schema.ResponseLyricRead'
         type: array
       release_date:
+        example: "2012-09-23"
         type: string
       song:
+        example: some song
         type: string
       updated_at:
+        example: "2024-10-05T12:57:19.752+05:00"
         type: string
       uuid:
+        example: da6f6e2c-ef5d-4276-b0a1-5067e77278ca
         type: string
     type: object
   schema.ResponseLyricRead:
     properties:
       audio_uuid:
+        example: da6f6e2c-ef5d-4276-b0a1-5067e77278ca
         type: string
       created_at:
+        example: "2024-10-05T12:57:19.752+05:00"
         type: string
       order:
+        example: 0
         type: integer
       text:
+        example: Never gonna give you up
         type: string
       updated_at:
+        example: "2024-10-05T12:57:19.752+05:00"
         type: string
       uuid:
+        example: da6f6e2c-ef5d-4276-b0a1-5067e77278ca
         type: string
     type: object
   schema.ResponseUUID:
     properties:
       uuid:
+        example: da6f6e2c-ef5d-4276-b0a1-5067e77278ca
         type: string
     type: object
   v1.ResponseBase-schema_ResponseAudioRead:

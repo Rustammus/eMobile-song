@@ -1,6 +1,9 @@
 # Song app
 
 ---
+Резюме -  [тут](https://docs.google.com/document/d/1JMZPVR4h2tvx2sP2wzNFZPux2KlQbMkmhxUlcdfMkv4/edit?usp=sharing) <br/>
+Возможно вас заинтересует проект 4 в резюме. Если так, то напишите в тг, я подготовлю проект для демонстрации 
+---
 
 #### API и модели данных описанны в docs, swagger доступен по пути /swagger/index.html
 

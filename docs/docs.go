@@ -358,10 +358,12 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "group": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "classic"
                 },
                 "song": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "some song"
                 }
             }
         },
@@ -369,19 +371,24 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "group": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "classic"
                 },
                 "link": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "https://youtu.be/dQw4w9WgXcQ"
                 },
                 "lyrics": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Never gonna give you up\n\nnever gonna let you down"
                 },
                 "release_date": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2012-09-23"
                 },
                 "song": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "some song"
                 }
             }
         },
@@ -389,25 +396,32 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "created_at": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2024-10-05T12:57:19.752+05:00"
                 },
                 "group": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "classic"
                 },
                 "link": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "https://youtu.be/dQw4w9WgXcQ"
                 },
                 "release_date": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2012-09-23"
                 },
                 "song": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "some song"
                 },
                 "updated_at": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2024-10-05T12:57:19.752+05:00"
                 },
                 "uuid": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "da6f6e2c-ef5d-4276-b0a1-5067e77278ca"
                 }
             }
         },
@@ -415,13 +429,16 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "created_at": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2024-10-05T12:57:19.752+05:00"
                 },
                 "group": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "classic"
                 },
                 "link": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "https://youtu.be/dQw4w9WgXcQ"
                 },
                 "lyrics": {
                     "type": "array",
@@ -430,16 +447,20 @@ const docTemplate = `{
                     }
                 },
                 "release_date": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2012-09-23"
                 },
                 "song": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "some song"
                 },
                 "updated_at": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2024-10-05T12:57:19.752+05:00"
                 },
                 "uuid": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "da6f6e2c-ef5d-4276-b0a1-5067e77278ca"
                 }
             }
         },
@@ -447,22 +468,28 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "audio_uuid": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "da6f6e2c-ef5d-4276-b0a1-5067e77278ca"
                 },
                 "created_at": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2024-10-05T12:57:19.752+05:00"
                 },
                 "order": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 },
                 "text": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Never gonna give you up"
                 },
                 "updated_at": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2024-10-05T12:57:19.752+05:00"
                 },
                 "uuid": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "da6f6e2c-ef5d-4276-b0a1-5067e77278ca"
                 }
             }
         },
@@ -470,7 +497,8 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "uuid": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "da6f6e2c-ef5d-4276-b0a1-5067e77278ca"
                 }
             }
         },
