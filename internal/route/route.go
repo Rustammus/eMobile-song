@@ -20,6 +20,8 @@ type Deps struct {
 	Config  *config.Config
 }
 
+// NewHandler
+// return new not initialized all-handler
 func NewHandler(d Deps) *Handler {
 	return &Handler{
 		s:    d.Service,
@@ -28,6 +30,8 @@ func NewHandler(d Deps) *Handler {
 	}
 }
 
+// Init
+// Initialize handlers
 func (h *Handler) Init(r *httprouter.Router) {
 	hv1 := v1.NewHandler(v1.Deps{
 		Service: h.s,

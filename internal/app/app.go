@@ -52,19 +52,21 @@ func Run() {
 
 	// init services
 	services := service.NewService(&service.Deps{
-		Repo:    repositories,
-		Logger:  log,
-		InfoURL: conf.Server.InfoServiceUrl,
+		Repo:       repositories,
+		Logger:     log,
+		HttpClient: http.DefaultClient,
+		InfoURL:    conf.Server.InfoServiceUrl,
 	})
 
 	// init router
 	router := httprouter.New()
 
+	// swagger handler
 	if conf.Server.EnableSwag {
+		docs.SwaggerInfo.Host = conf.Server.ExternalHost + ":" + conf.Server.ExternalPort
 		router.Handler("GET", "/swagger/*any", httpSwagger.Handler(
 			httpSwagger.URL("http://"+conf.Server.ExternalHost+":"+conf.Server.ExternalPort+"/swagger/doc.json"),
 		))
-		docs.SwaggerInfo.Host = conf.Server.ExternalHost + ":" + conf.Server.ExternalPort
 		log.Info("Swagger enabled")
 	}
 
@@ -110,3 +112,4 @@ func Run() {
 // TODO add comments
 // TODO validate after <= before
 // TODO check if resp JSON is empty in getAudioInfo
+// TODO russian full-text-search

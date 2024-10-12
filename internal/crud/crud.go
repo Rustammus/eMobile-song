@@ -22,6 +22,8 @@ type Client interface {
 	Close()
 }
 
+// GetPool
+// Get connection pool wrapped in Client interface
 func GetPool(conf *config.Config, logger logging.Logger) Client {
 	pool, err := postgres.NewPool(context.TODO(), postgres.Deps{
 		Username: conf.Storage.Username,

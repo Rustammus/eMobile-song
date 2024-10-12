@@ -13,6 +13,8 @@ type Repository struct {
 	Lyric LyricRepository
 }
 
+// NewRepository
+// return all-in-one repository
 func NewRepository(c crud.Client, l logging.Logger) Repository {
 	return Repository{
 		Audio: crud.NewAudioCRUD(c, l),

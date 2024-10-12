@@ -20,6 +20,8 @@ type Deps struct {
 	Conf   *config.Config
 }
 
+// NewAppMux
+// return new application muxer with panic recover and logger middleware
 func NewAppMux(d *Deps) *AppMux {
 	return &AppMux{
 		r:    d.Router,
@@ -38,11 +40,15 @@ func (s *AppMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	s.LogMiddleware(s.r).ServeHTTP(w, r)
 }
 
+// PanicHandler
+// recover panic and write 500 status
 func (s *AppMux) PanicHandler(w http.ResponseWriter, r *http.Request, rcv any) {
 	w.WriteHeader(http.StatusInternalServerError)
 	s.l.Error("recover from panic: ", rcv)
 }
 
+// LogMiddleware
+// logging all requests
 func (s *AppMux) LogMiddleware(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		sTime := time.Now().UTC()

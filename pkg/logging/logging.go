@@ -70,10 +70,14 @@ func (l *Logger) SetLevel(level logrus.Level) {
 	l.Logger.SetLevel(level)
 }
 
+// GetLogger
+// Return previously initialized logger
 func GetLogger() Logger {
 	return Logger{logEntry}
 }
 
+// GetLoggerTest
+// Return logger with io.Discard output
 func GetLoggerTest() Logger {
 	l := logrus.New()
 	l.Level = logrus.TraceLevel

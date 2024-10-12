@@ -15,6 +15,8 @@ type Deps struct {
 	Database string
 }
 
+// NewPool
+// Create new pgxpool.Pool and check connection
 func NewPool(ctx context.Context, d Deps) (pool *pgxpool.Pool, err error) {
 	dsn := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s", d.Username, d.Password, d.Host, d.Port, d.Database)
 	maxAttempts := 5

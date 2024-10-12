@@ -38,7 +38,7 @@ func (h *Handler) audioCreate(w http.ResponseWriter, r *http.Request, ps httprou
 
 	err := json.NewDecoder(r.Body).Decode(&audio)
 	if err != nil {
-		WriteResponseErr(w, http.StatusInternalServerError, err, "read body err")
+		WriteResponseErr(w, http.StatusBadRequest, err, "read body err")
 		return
 	}
 
@@ -133,6 +133,7 @@ func (h *Handler) audioFindByUUID(w http.ResponseWriter, r *http.Request, ps htt
 	uuid, err := h.getUUIDParam(ps)
 	if err != nil {
 		WriteResponseErr(w, http.StatusBadRequest, err, "invalid uuid in path param")
+		return
 	}
 
 	audioSchema := schema.ResponseAudioReadFull{}
@@ -185,7 +186,7 @@ func (h *Handler) audioUpdateByUUID(w http.ResponseWriter, r *http.Request, ps h
 	audio := schema.RequestAudioUpdate{}
 	err = json.NewDecoder(r.Body).Decode(&audio)
 	if err != nil {
-		WriteResponseErr(w, http.StatusInternalServerError, err, "read body err")
+		WriteResponseErr(w, http.StatusBadRequest, err, "read body err")
 		return
 	}
 

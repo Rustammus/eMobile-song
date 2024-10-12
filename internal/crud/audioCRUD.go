@@ -114,6 +114,9 @@ func (c *AudioCRUD) FindByUUIDWithLyrics(ctx context.Context, uuid pgtype.UUID) 
 
 	a := dto.AudioReadFull{}
 	err := c.db.QueryRow(ctx, qAudio, uuid).Scan(&a.UUID, &a.Group, &a.Song, &a.ReleaseDate, &a.Link, &a.CreatedAt, &a.UpdatedAt)
+	if err != nil {
+		return nil, err
+	}
 
 	// select lyrics rows
 	qLyrics := `SELECT uuid, audio_uuid, "order", text, created_at, updated_at

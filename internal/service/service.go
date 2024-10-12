@@ -17,17 +17,20 @@ type Service struct {
 }
 
 type Deps struct {
-	Repo    repo.Repository
-	Logger  logging.Logger
-	InfoURL string
+	Repo       repo.Repository
+	Logger     logging.Logger
+	HttpClient *http.Client
+	InfoURL    string
 }
 
+// NewService
+// return all-in-one service
 func NewService(d *Deps) Service {
 	return Service{
 		Audio: audioService.NewAudioService(&audioService.Deps{
 			Repo:    d.Repo,
 			Logger:  d.Logger,
-			Http:    http.DefaultClient,
+			Http:    d.HttpClient,
 			InfoURL: d.InfoURL,
 		}),
 		Lyric: lyricService.NewLyricService(&lyricService.Deps{

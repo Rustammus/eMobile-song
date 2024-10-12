@@ -20,6 +20,8 @@ type Migrator struct {
 	migrator *migrate.Migrate
 }
 
+// Up
+// migrate to latest version
 func (m Migrator) Up() error {
 	return m.migrator.Up()
 }

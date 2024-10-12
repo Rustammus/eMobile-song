@@ -7,6 +7,8 @@ import (
 	"sync"
 )
 
+// Config
+// main config
 type Config struct {
 	Server  Server  `yaml:"server"`
 	Storage Storage `yaml:"storage"`
@@ -35,6 +37,10 @@ type Storage struct {
 var once sync.Once
 var instance *Config
 
+// GetConfig
+// On first call read config from CONFIG_FILE env, if not
+// present, read from env variables
+// On further calls return config without reading
 func GetConfig(logger logging.Logger) *Config {
 	once.Do(func() {
 		confPath := "app_dev.env"

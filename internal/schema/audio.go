@@ -93,6 +93,7 @@ func (schema *RequestAudioUpdate) ToDTO() (*dto.AudioUpdate, error) {
 			count++
 		}
 	}
+
 	if errStr != "" {
 		return nil, errors.New(errStr)
 	} else if count == 0 {
@@ -145,6 +146,12 @@ func (schema *RequestAudioFilter) ToDTO() (*dto.AudioFilter, error) {
 			return nil, errors.New("invalid before format, example: 2006-09-25")
 		}
 		filterDTO.ReleaseDateBefore = pgtype.Date{Time: t, Valid: true}
+		empty = false
+	}
+	if filterDTO.ReleaseDateAfter.Valid && filterDTO.ReleaseDateBefore.Valid {
+		if filterDTO.ReleaseDateAfter.Time.After(filterDTO.ReleaseDateBefore.Time) {
+			return nil, errors.New("'after' date cannot be greater than 'before'")
+		}
 		empty = false
 	}
 	if schema.Link != "" {

@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"log"
+	"math/rand/v2"
 	"net/http"
 )
 
@@ -32,17 +33,25 @@ In a world of endless changes, you’re my constant star.`
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/info", func(w http.ResponseWriter, r *http.Request) {
+		num := rand.IntN(3)
 		resp := ResponseAudioInfo{
 			ReleaseDate: "23.09.2023",
 			Text:        song1,
 			Link:        "https://youtu.be/dQw4w9WgXcQ",
 		}
-		e := json.NewEncoder(w)
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		if err := e.Encode(resp); err != nil {
-			log.Print(err)
+		if num == 0 {
+			e := json.NewEncoder(w)
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+			if err := e.Encode(resp); err != nil {
+				log.Print(err)
+			}
+		} else if num == 1 {
+			w.WriteHeader(http.StatusBadRequest)
+		} else {
+			w.WriteHeader(http.StatusInternalServerError)
 		}
 	})
 	log.Print(http.ListenAndServe(":8088", mux))
+
 }
